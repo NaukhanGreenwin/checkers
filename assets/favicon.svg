@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Checkers">
+  <defs>
+    <linearGradient id="p" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d4503c"/>
+      <stop offset="1" stop-color="#8c2c22"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="#201814"/>
+  <g>
+    <rect x="0" y="0" width="16" height="16" fill="#cca579"/>
+    <rect x="32" y="0" width="16" height="16" fill="#cca579"/>
+    <rect x="16" y="16" width="16" height="16" fill="#cca579"/>
+    <rect x="48" y="16" width="16" height="16" fill="#cca579"/>
+    <rect x="0" y="32" width="16" height="16" fill="#cca579"/>
+    <rect x="32" y="32" width="16" height="16" fill="#cca579"/>
+    <rect x="16" y="48" width="16" height="16" fill="#cca579"/>
+    <rect x="48" y="48" width="16" height="16" fill="#cca579"/>
+    <rect x="16" y="0" width="16" height="16" fill="#7a4e34"/>
+    <rect x="48" y="0" width="16" height="16" fill="#7a4e34"/>
+    <rect x="0" y="16" width="16" height="16" fill="#7a4e34"/>
+    <rect x="32" y="16" width="16" height="16" fill="#7a4e34"/>
+    <rect x="16" y="32" width="16" height="16" fill="#7a4e34"/>
+    <rect x="48" y="32" width="16" height="16" fill="#7a4e34"/>
+    <rect x="0" y="48" width="16" height="16" fill="#7a4e34"/>
+    <rect x="32" y="48" width="16" height="16" fill="#7a4e34"/>
+  </g>
+  <circle cx="32" cy="34" r="19" fill="#000" opacity=".32"/>
+  <circle cx="32" cy="32" r="19" fill="url(#p)"/>
+  <circle cx="32" cy="32" r="13" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
+  <circle cx="25" cy="25" r="5" fill="#fff" opacity=".18"/>
+</svg>

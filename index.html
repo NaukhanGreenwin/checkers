@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-coords="on">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Checkers — Play English Draughts vs Computer or a Friend</title>
+<meta name="description" content="A polished, free checkers game. Play English draughts against three computer difficulties or pass-and-play locally. Mandatory captures, multi-jumps, kings, move history. No downloads.">
+<meta name="theme-color" content="#181a1f" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f4f4f6" media="(prefers-color-scheme: light)">
+<meta name="color-scheme" content="dark light">
+<link rel="canonical" href="https://naukhangreenwin.github.io/checkers/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Checkers — English Draughts">
+<meta property="og:description" content="Play checkers against three computer difficulties or a friend. Mandatory captures, multi-jumps, kings, and a full move history.">
+<meta property="og:url" content="https://naukhangreenwin.github.io/checkers/">
+<meta property="og:image" content="https://naukhangreenwin.github.io/checkers/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Checkers — English Draughts">
+<meta name="twitter:description" content="Play checkers against three computer difficulties or a friend.">
+<meta name="twitter:image" content="https://naukhangreenwin.github.io/checkers/assets/og.png">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand__mark" aria-hidden="true"></span>
+      <span class="brand__name">Checkers</span>
+      <span class="brand__sub">English draughts</span>
+    </div>
+
+    <button type="button" class="btn btn--icon" id="themeBtn" aria-label="Switch to light theme">
+      <svg class="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>
+    </button>
+    <button type="button" class="btn btn--primary" id="menuBtn">New game</button>
+  </header>
+
+  <main class="layout">
+
+    <section class="stage" aria-label="Game board">
+      <div class="turnbar" id="turnbar" data-turn="b" data-thinking="0">
+        <span class="turnbar__dot" aria-hidden="true"></span>
+        <span class="turnbar__text" id="turnText">Your move</span>
+        <span class="turnbar__hint" id="turnHint">7 legal moves</span>
+        <span class="thinking" aria-hidden="true">
+          Thinking
+          <span class="thinking__dot"></span><span class="thinking__dot"></span><span class="thinking__dot"></span>
+        </span>
+      </div>
+
+      <div class="board-frame">
+        <div class="board" id="board" role="grid"
+             aria-label="Checkers board. Use arrow keys to move between squares, Enter or Space to select a piece and again to move it.">
+          <div class="pieces" id="pieces" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <p class="visually-hidden" id="statusLive" role="status" aria-live="polite"></p>
+    </section>
+
+    <aside class="rail" aria-label="Game controls">
+
+      <section class="panel panel--score">
+        <h2 class="panel__head">Score</h2>
+        <div class="panel__body">
+          <div class="score">
+            <div class="side side--b" id="side-b" data-active="1">
+              <span class="side__chip" aria-hidden="true"></span>
+              <span>
+                <span class="side__name">Black</span><br>
+                <span class="side__meta">12 men · 0 kings</span>
+              </span>
+              <span class="side__count">12</span>
+            </div>
+            <div class="side side--r" id="side-r" data-active="0">
+              <span class="side__chip" aria-hidden="true"></span>
+              <span>
+                <span class="side__name">Red</span><br>
+                <span class="side__meta">12 men · 0 kings</span>
+              </span>
+              <span class="side__count">12</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button type="button" class="btn" id="undoBtn" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7v6h6"/><path d="M3.5 13a9 9 0 1 0 2.3-6.4L3 9"/></svg>
+              Undo
+            </button>
+            <button type="button" class="btn" id="newBtn">Restart</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="railtabs">
+        <button type="button" class="btn" id="histToggle" aria-expanded="false" aria-controls="historyPanel">Move history</button>
+      </div>
+
+      <section class="panel panel--history" id="historyPanel" data-open="0">
+        <h2 class="panel__head">Move history</h2>
+        <div class="history" id="historyWrap">
+          <ol class="history__list" id="historyList" hidden></ol>
+          <p class="history__empty" id="historyEmpty">No moves yet. Black opens.</p>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2 class="panel__head">Settings</h2>
+        <div class="panel__body">
+          <div class="row">
+            <span>
+              <span class="row__label">Sound</span><br>
+              <span class="row__sub">Moves, captures, crowning</span>
+            </span>
+            <button type="button" class="switch" id="soundSwitch" role="switch" aria-checked="false" aria-label="Sound effects"></button>
+          </div>
+          <div class="row">
+            <span>
+              <span class="row__label">Square numbers</span><br>
+              <span class="row__sub">Standard 1–32 notation</span>
+            </span>
+            <button type="button" class="switch" id="coordSwitch" role="switch" aria-checked="true" aria-label="Show square numbers"></button>
+          </div>
+          <button type="button" class="btn btn--block btn--sm" id="hintBtn" aria-pressed="true">Toggle move hints</button>
+        </div>
+      </section>
+
+    </aside>
+  </main>
+</div>
+
+<div class="modal" id="modal" data-open="0" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal__card" id="modalBody"></div>
+</div>
+<div class="confetti" id="confetti" aria-hidden="true"></div>
+
+<script type="module" src="js/main.js"></script>
+<noscript>
+  <p style="padding:24px;text-align:center">Checkers needs JavaScript enabled to run.</p>
+</noscript>
+</body>
+</html>
